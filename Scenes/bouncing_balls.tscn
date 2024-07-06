@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/bouncing_balls/bounce_ball_parent_tool.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=2]
+min_value = 1.0
+max_value = 3.0
+_data = [ Vector2( 0.00503356, 1.92638 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), -3.18158, 0.0, 0, 0 ]
+
+[sub_resource type="SegmentShape2D" id=3]
+b = Vector2( -1500, 0 )
+
+[node name="bouncing_balls" type="Node2D"]
+
+[node name="enivorment" type="Node2D" parent="."]
+
+[node name="startfield_effect" type="CPUParticles2D" parent="enivorment"]
+amount = 500
+lifetime = 5.0
+randomness = 1.0
+fixed_fps = 60
+emission_shape = 2
+emission_rect_extents = Vector2( 700, 450 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 15.0
+initial_velocity_random = 1.0
+tangential_accel_random = 1.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 2 )
+
+[node name="main" type="Node2D" parent="."]
+
+[node name="camera" type="Camera2D" parent="main"]
+current = true
+
+[node name="platform" type="StaticBody2D" parent="main"]
+position = Vector2( 0, 283 )
+collision_layer = 2
+
+[node name="collider" type="CollisionShape2D" parent="main/platform"]
+position = Vector2( 760, 1 )
+shape = SubResource( 3 )
+
+[node name="separator" type="ColorRect" parent="main/platform"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1000.0
+margin_right = 1000.0
+margin_bottom = 2.0
+
+[node name="pin_lines" type="Node2D" parent="main"]
+unique_name_in_owner = true
+
+[node name="balls_parent" type="Node2D" parent="main"]
+unique_name_in_owner = true
+self_modulate = Color( 1, 0, 0.0166664, 1 )
+position = Vector2( -613, -210 )
+script = ExtResource( 1 )
+balls_count = 50
+balls_x_step = 25.0

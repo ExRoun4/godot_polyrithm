@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/SFX/bounce_bang.wav" type="AudioStream" id=1]
+[ext_resource path="res://Scripts/bouncing_balls/bounce_ball.gd" type="Script" id=2]
+
+[sub_resource type="SphereMesh" id=2]
+radius = 15.0
+height = 30.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 15.0
+
+[node name="bounce_ball" type="KinematicBody2D"]
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="sprite" type="MeshInstance2D" parent="."]
+mesh = SubResource( 2 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="bounce_SFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource( 1 )
+pitch_scale = 1.5
+
+[node name="bounce_tween" type="Tween" parent="."]
+unique_name_in_owner = true
